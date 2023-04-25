@@ -52,8 +52,8 @@ namespace ApiMusica.Controllers {
         //UPDATE CANCION
         [HttpPut]
         [Route("[action]/{idCancion}/{nombre}/{duracion}/{idGenero}")]
-        public async Task<ActionResult> UpdateCancion(Cancion cancion){
-            await this.repo.UpdateCancionAsync(cancion.IdCancion, cancion.Nombre, cancion.Duracion, cancion.IdGenero);
+        public async Task<ActionResult> UpdateCancion(int idCancion, string nombre, double duracion, int idGenero){
+            await this.repo.UpdateCancionAsync(idCancion, nombre, duracion, idGenero);
             return Ok();
         }
 
