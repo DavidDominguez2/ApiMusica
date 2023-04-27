@@ -1,4 +1,5 @@
 ﻿using ApiMusica.Data;
+using ApiMusica.Models;
 using Microsoft.EntityFrameworkCore;
 using NugetMusica.Models;
 
@@ -15,6 +16,22 @@ namespace ApiMusica.Repositories {
         public async Task<List<Cancion>> GetCancionesAsync()
         {
             return await this.context.Canciones.ToListAsync();
+        }
+
+        //GET CANCIONES PAGINADAS
+        public async Task<CancionesPaginadas> GetCancionesPaginacionAsync(int posicion) { 
+            List<Cancion> canciones = await this.GetCancionesAsync();
+            int numRegistros = canciones.Count();
+
+            List<Cancion> listacancionespag = canciones.Skip(posicion).Take(4).ToList();
+
+            CancionesPaginadas cancionesPag = new CancionesPaginadas {
+                Canciones = listacancionespag,
+                NumRegistros = numRegistros
+            };
+
+
+            return cancionesPag;
         }
 
         //FIND CANCIUON

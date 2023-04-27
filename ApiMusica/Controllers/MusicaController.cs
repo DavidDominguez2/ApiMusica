@@ -2,6 +2,7 @@
 using NugetMusica.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using ApiMusica.Models;
 
 namespace ApiMusica.Controllers {
     [Route("api/[controller]")]
@@ -26,6 +27,15 @@ namespace ApiMusica.Controllers {
         public async Task<ActionResult<Cancion>> FindCancion(int id)
         {
             return await this.repo.FindCancionAsync(id);
+        }
+
+        [HttpGet]
+        [Route("[action]/{posicion}")]
+        public async Task<ActionResult<CancionesPaginadas>> GetCancionesPaginadas(int posicion = 0) {
+
+            CancionesPaginadas cancionesPag = await this.repo.GetCancionesPaginacionAsync(posicion);
+
+            return cancionesPag;
         }
 
         //GET CANCIONES GENERO
